@@ -16,23 +16,6 @@ mtmg_service_region = mtmg_county %>%
   select(!contains(c("Ratio", "Member", "Census", "Continuum"))) %>%
   group_by(`County, State`, Year)
 
-ggplot(mtmg_service_region, aes(factor(Year), `Overall Food Insecurity Rate`, fill = factor(Year))) +
-  geom_bar(stat = "identity") +
-  geom_hline(yintercept = 0.1) +
-  facet_wrap(~ `County, State`)
-
-education_data = read_excel("./data/ACSST1Y2022.S1501-2024-08-26T001853.xlsx", sheet = "Data")
-
-
-
-
-
-
-
-
-
-
-
 georgia_federal_data = federal_codes %>%
   filter(census_class_code %in% c("H1", "H6")) %>%
   arrange(county_name) %>%
@@ -42,6 +25,38 @@ combined_data = mtmg_county %>%
   filter(Year == 2021) %>%
   left_join(georgia_federal_data, by = "FIPS")
 
-ggplot(combined_data, aes(prim_long_dec, prim_lat_dec, color = `Median Income (5 Yr ACS)`, size = `Total Population (5 Year ACS)`)) + 
-  geom_point() + 
-  coord_fixed()
+plot_data = function()
+{
+  ggplot(mtmg_service_region, aes(factor(Year), `Overall Food Insecurity Rate`, fill = factor(Year))) +
+    geom_bar(stat = "identity") +
+    geom_hline(yintercept = 0.1) +
+    facet_wrap(~ `County, State`)
+  
+  ggplot(combined_data, aes(prim_long_dec, prim_lat_dec, color = `Median Income (5 Yr ACS)`, size = `Total Population (5 Year ACS)`)) + 
+    geom_point() + 
+    coord_fixed() 
+  
+  for (i in 3:3)
+  {
+    plot = ggplot(S0101_data %>% group_by(Age), aes(factor(Year), get(names(S0101_data)[i]), group = factor(Age))) +
+      geom_point() + 
+      geom_line() + 
+      ggtitle(names(S0101_data)[i]) +
+      xlab("Year") +
+      ylab("Population Count") + 
+      facet_wrap(~ Age)
+    print(plot)
+  }
+  
+  for (i in 3:3)
+  {
+    plot = ggplot(S1501_data %>% group_by(Education), aes(factor(Year), get(names(S1501_data)[i]), group = factor(Education))) +
+      geom_point() + 
+      geom_line() + 
+      ggtitle(names(S0101_data)[i]) +
+      xlab("Year") +
+      ylab("Population Count") + 
+      facet_wrap(~ Education)
+    print(plot)
+  }
+}
