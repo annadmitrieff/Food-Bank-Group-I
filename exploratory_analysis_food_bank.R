@@ -2,6 +2,22 @@ library(readxl)
 library(dplyr)
 library(ggplot2)
 
+names = c("Banks County, Georgia", 
+          "Barrow County, Georgia", 
+          "Clarke County, Georgia",
+          "Elbert County, Georgia",
+          "Franklin County, Georgia",
+          "Habersham County, Georgia",
+          "Hart County, Georgia",
+          "Jackson County, Georgia",
+          "Madison County, Georgia",
+          "Oconee County, Georgia",
+          "Oglethorpe County, Georgia",
+          "Rabun County, Georgia",
+          "Stephens County, Georgia",
+          "Towns County, Georgia",
+          "White County, Georgia")
+
 mtmg_xlsx = read_excel("./data/Map_The_Meal_Gap.xlsx")
 federal_codes = read.table("./data/FederalCodes_GA.txt", 
                            sep = "|", 
@@ -57,6 +73,20 @@ plot_data = function()
       xlab("Year") +
       ylab("Population Count") + 
       facet_wrap(~ Education)
+    print(plot)
+  }
+  
+  for (i in 3:17)
+  {
+    snap = data.frame(Poverty = "Population participating in SNAP", SNAP_data)
+    colnames(snap) = c("Poverty", "Year", names)
+    plot = ggplot(S1701_data %>% rbind(snap) %>% group_by(Poverty), aes(factor(Year), get(names(S1501_data)[i]), group = factor(Poverty), color = factor(Poverty))) +
+      geom_point() + 
+      geom_line() + 
+      ggtitle(names(S1701_data)[i]) +
+      expand_limits(y = 0) +
+      xlab("Year") +
+      ylab("Population Count")
     print(plot)
   }
 }
