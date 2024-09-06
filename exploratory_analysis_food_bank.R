@@ -41,52 +41,65 @@ combined_data = mtmg_county %>%
   filter(Year == 2021) %>%
   left_join(georgia_federal_data, by = "FIPS")
 
-plot_data = function()
+get_data = function()
 {
-  ggplot(mtmg_service_region, aes(factor(Year), `Overall Food Insecurity Rate`, fill = factor(Year))) +
-    geom_bar(stat = "identity") +
-    geom_hline(yintercept = 0.1) +
-    facet_wrap(~ `County, State`)
+  county_name = "Banks County, Georgia"
   
-  ggplot(combined_data, aes(prim_long_dec, prim_lat_dec, color = `Median Income (5 Yr ACS)`, size = `Total Population (5 Year ACS)`)) + 
-    geom_point() + 
-    coord_fixed() 
+  age_data = NULL
   
-  for (i in 3:3)
+  for (i in 2:12)
   {
-    plot = ggplot(S0101_data %>% group_by(Age), aes(factor(Year), get(names(S0101_data)[i]), group = factor(Age))) +
-      geom_point() + 
-      geom_line() + 
-      ggtitle(names(S0101_data)[i]) +
-      xlab("Year") +
-      ylab("Population Count") + 
-      facet_wrap(~ Age)
-    print(plot)
+    year_data = S0101_data %>% 
+      filter(Year == 2010 + i)
+    temp_data = year_data[county_name]
+    temp_data = t(unlist(temp_data, use.names = FALSE))
+    temp_data = data.frame(2010 + i, temp_data)
+    colnames(temp_data) = c("Year", year_data$Age)
+    
+    age_data = age_data %>% rbind(temp_data)
   }
   
-  for (i in 3:3)
+  education_data = NULL
+  
+  for (i in 2:12)
   {
-    plot = ggplot(S1501_data %>% group_by(Education), aes(factor(Year), get(names(S1501_data)[i]), group = factor(Education))) +
-      geom_point() + 
-      geom_line() + 
-      ggtitle(names(S0101_data)[i]) +
-      xlab("Year") +
-      ylab("Population Count") + 
-      facet_wrap(~ Education)
-    print(plot)
+    year_data = S1501_data %>% 
+      filter(Year == 2010 + i)
+    temp_data = year_data[county_name]
+    temp_data = t(unlist(temp_data, use.names = FALSE))
+    temp_data = data.frame(2010 + i, temp_data)
+    colnames(temp_data) = c("Year", year_data$Education)
+    
+    education_data = education_data %>% rbind(temp_data)
   }
   
-  for (i in 3:17)
+  poverty_data = NULL
+  
+  for (i in 2:12)
   {
-    snap = data.frame(Poverty = "Population participating in SNAP", SNAP_data)
-    colnames(snap) = c("Poverty", "Year", names)
-    plot = ggplot(S1701_data %>% rbind(snap) %>% group_by(Poverty), aes(factor(Year), get(names(S1501_data)[i]), group = factor(Poverty), color = factor(Poverty))) +
-      geom_point() + 
-      geom_line() + 
-      ggtitle(names(S1701_data)[i]) +
-      expand_limits(y = 0) +
-      xlab("Year") +
-      ylab("Population Count")
-    print(plot)
+    year_data = S1701_data %>% 
+      filter(Year == 2010 + i)
+    temp_data = year_data[county_name]
+    temp_data = t(unlist(temp_data, use.names = FALSE))
+    temp_data = data.frame(2010 + i, temp_data)
+    colnames(temp_data) = c("Year", year_data$Poverty)
+    
+    poverty_data = poverty_data %>% rbind(temp_data)
   }
+  
+  snap_data = SNAP_data[c("Year", county_name)] %>%
+    filter(Year %in% 2012:2022)
+  colnames(snap_data) = c("Year", "Population participating in SNAP")
+  
+  data = full_join(age_data, education_data, by = "Year")
+  data = full_join(data, poverty_data, by = "Year")
+  data = full_join(data, snap_data, by = "Year")
+  return(data)
 }
+
+pop_data = get_data()
+correlation_matrix = cor(pop_data)
+correlation = data.frame(Correlation = correlation_matrix["Population participating in SNAP",])
+significant = correlation %>% filter(abs(Correlation) > 0.5)
+positive_correlation = significant %>% filter(Correlation > 0)
+negative_correlation = significant %>% filter(Correlation < 0)
