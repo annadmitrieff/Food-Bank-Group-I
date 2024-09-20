@@ -2,6 +2,22 @@ library(readxl)
 library(dplyr)
 library(stringr)
 
+names = c("Banks County, Georgia", 
+          "Barrow County, Georgia", 
+          "Clarke County, Georgia",
+          "Elbert County, Georgia",
+          "Franklin County, Georgia",
+          "Habersham County, Georgia",
+          "Hart County, Georgia",
+          "Jackson County, Georgia",
+          "Madison County, Georgia",
+          "Oconee County, Georgia",
+          "Oglethorpe County, Georgia",
+          "Rabun County, Georgia",
+          "Stephens County, Georgia",
+          "Towns County, Georgia",
+          "White County, Georgia")
+
 SNAP_folder = list.files("./data/SNAP_Participation", pattern = "^J", full.names = TRUE)
 SNAP_data = NULL
 

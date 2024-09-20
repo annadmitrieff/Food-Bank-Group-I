@@ -41,10 +41,8 @@ combined_data = mtmg_county %>%
   filter(Year == 2021) %>%
   left_join(georgia_federal_data, by = "FIPS")
 
-get_data = function()
+get_data = function(county_name)
 {
-  county_name = "Banks County, Georgia"
-  
   age_data = NULL
   
   for (i in 2:12)
@@ -94,12 +92,19 @@ get_data = function()
   data = full_join(age_data, education_data, by = "Year")
   data = full_join(data, poverty_data, by = "Year")
   data = full_join(data, snap_data, by = "Year")
+  data = data %>% select(c(1:29, 35))
   return(data)
 }
 
-pop_data = get_data()
+for (i in 1:length(names))
+{
+  pop_data = get_data(names[i])
+  write.csv(pop_data, paste("./data/Formatted_Data/", gsub(",", "", gsub(" ", "_", names[i])), ".csv", sep = ""), row.names = FALSE)
+}
+
+pop_data = get_data("Banks County, Georgia")
 correlation_matrix = cor(pop_data)
-correlation = data.frame(Correlation = correlation_matrix["Population participating in SNAP",])
+correlation = data.frame(Correlation = correlation_matrix["Population participating in SNAP",2:(length(pop_data) - 1)])
 significant = correlation %>% filter(abs(Correlation) > 0.5)
-positive_correlation = significant %>% filter(Correlation > 0)
-negative_correlation = significant %>% filter(Correlation < 0)
+positive_correlation = significant %>% filter(Correlation > 0) %>% arrange(desc(Correlation))
+negative_correlation = significant %>% filter(Correlation < 0) %>% arrange(Correlation)
