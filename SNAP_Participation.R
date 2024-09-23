@@ -50,3 +50,6 @@ for (i in 0:12)
   
   SNAP_data = SNAP_data %>% rbind(pop)
 }
+
+SNAP_data = SNAP_data %>% mutate(Label = rep("Calc: SNAP Total PA and Non-PA Households"))
+SNAP_data = SNAP_data[c("Label", "Year", names)]
