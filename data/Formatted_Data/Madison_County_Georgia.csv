@@ -1,12 +1,34 @@
-"Year","Under 5 years","5 to 9 years","10 to 14 years","15 to 19 years","20 to 24 years","25 to 29 years","30 to 34 years","35 to 39 years","40 to 44 years","45 to 49 years","50 to 54 years","55 to 59 years","60 to 64 years","65 to 69 years","70 to 74 years","75 to 79 years","80 to 84 years","85 years and over","Less than 9th grade","9th to 12th grade, no diploma","High school graduate (includes equivalency)","Some college, no degree","Associate's degree","Bachelor's degree","Graduate or professional degree","Under 50% of poverty line","Under 100% of poverty line","Under 125% of poverty line","Population participating in SNAP"
-2012,1903,1819,1931,1903,1511,1735,1819,1791,1819,2183,2155,1987,1539,1399,980,644,448,420,1529,3095,7172,3473,1057,1585,944,1998,5285,6709,3274
-2013,1683,1851,2019,1823,1542,1711,1711,1879,1851,2159,2187,1739,1851,1486,1038,645,505,365,1356,2732,7431,3687,1051,1681,1165,1858,4980,6852,2768
-2014,1660,1745,2026,1829,1632,1717,1745,1829,1745,2167,2167,1773,1970,1660,957,647,535,338,1232,2540,7602,3772,1251,1655,1193,1997,5168,7098,2251
-2015,1637,1835,1892,1807,1779,1609,1835,1581,1948,2061,2174,1609,2089,1722,1045,678,480,452,1172,2375,7691,3840,1193,1690,1311,1950,4798,7094,1907
-2016,1730,1929,1758,1702,1844,1532,1787,1702,1872,2014,2212,1645,2156,1645,1220,652,482,482,1083,2263,7709,3830,1522,1754,1249,2241,4520,6925,2125
-2017,1684,1929,1832,1703,1816,1486,1751,1737,1952,2034,2172,1783,2141,1561,1290,718,518,493,1230,2249,7417,3870,1587,1827,1456,2364,4977,7621,1712
-2018,1688,2056,1767,1705,1839,1621,1725,1612,2015,2056,2129,1967,2160,1514,1328,805,455,458,1100,2223,7534,3685,1721,1990,1592,2099,4990,7095,1872
-2019,1690,2254,1716,1597,1814,1701,1751,1694,2007,2075,1973,2090,1991,1662,1359,875,471,498,1194,2200,8012,3616,1391,2213,1521,2179,4953,6814,1575
-2020,1687,2063,1999,1610,1839,1841,1647,1993,1749,2154,1922,2454,1713,1757,1273,1021,469,433,1321,2090,7302,3837,1950,2074,1852,2246,5852,7417,2144
-2021,1716,1769,2310,1716,1800,1823,1793,1932,1872,2068,1886,2518,1584,1906,1259,1021,505,428,1345,2398,6784,4012,1864,2191,2001,2219,6565,8141,1971
-2022,1889,1809,2161,1960,1757,1932,1921,1697,1918,2079,1830,2421,1640,2070,1274,1049,467,504,1453,2060,7106,4284,1824,2002,2073,2512,6203,7418,2155
+"x"
+"Year"
+"Total population"
+"Male"
+"Female"
+"Under 5 years"
+"5 to 9 years"
+"10 to 14 years"
+"15 to 19 years"
+"20 to 24 years"
+"25 to 34 years"
+"35 to 44 years"
+"45 to 54 years"
+"55 to 59 years"
+"60 to 64 years"
+"65 to 74 years"
+"75 to 84 years"
+"85 years and over"
+"Median age (years)"
+"18 years and over"
+"21 years and over"
+"62 years and over"
+"65 years and over"
+"% of total population that are food insecure"
+"# of individuals that are food insecure"
+"% of individuals in households below 130% of poverty line that are food insecure"
+"% of individuals in households above 130% of poverty line that are food insecure"
+"% of children that are food insecure"
+"# of children that are food insecure"
+"% of children in households below 185% of poverty line that are food insecure"
+"% of children in households above 185% of poverty line that are food insecure"
+"Average meal cost"
+"Weighted annual food budget shortfall"
+"Calc: SNAP Total PA and Non-PA Households"
